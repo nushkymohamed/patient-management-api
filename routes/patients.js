@@ -4,10 +4,10 @@ const multer = require('multer');
 const path = require('path');
 const Patient = require('../models/Patient');
 
-// Define the storage and file naming strategy for patient photos
+
 const storage = multer.diskStorage({
   destination: function (req, file, cb) {
-    cb(null, 'uploads/'); // The path where uploaded files will be stored
+    cb(null, 'uploads/'); //file upload path need to cange this later for cloudinary/cloud
   },
   filename: function (req, file, cb) {
     const filename = `${file.fieldname}-${Date.now()}${path.extname(
@@ -21,7 +21,6 @@ const upload = multer({ storage });
 
 router.post('/', upload.single('photo'), async (req, res) => {
   try {
-    // Create a new patient with the uploaded photo
     const patientData = {
       name: req.body.name,
       birthday: req.body.birthday,
@@ -40,7 +39,6 @@ router.post('/', upload.single('photo'), async (req, res) => {
   }
 });
 
-// Get a list of all patients
 router.get('/', async (req, res) => {
   try {
     const patients = await Patient.find();
@@ -49,7 +47,7 @@ router.get('/', async (req, res) => {
     res.status(500).json({ error: err.message });
   }
 });
-// Search Patient
+
 router.get('/search', async (req, res) => {
   try {
     const query = {};
@@ -84,7 +82,7 @@ router.get('/search', async (req, res) => {
   }
 });
 
-// Get a Patient by their ID
+
 router.get('/:id', async (req, res) => {
   try {
     const patient = await Patient.findById(req.params.id);
@@ -99,7 +97,7 @@ router.get('/:id', async (req, res) => {
   }
 });
 
-// Update a patient's information
+
 router.put('/:id', async (req, res) => {
   try {
     const updatedPatient = await Patient.findByIdAndUpdate(
@@ -113,7 +111,7 @@ router.put('/:id', async (req, res) => {
   }
 });
 
-// Delete a patient
+
 router.delete('/:id', async (req, res) => {
   try {
     await Patient.findByIdAndRemove(req.params.id);

@@ -2,7 +2,7 @@ const express = require('express');
 const router = express.Router();
 const Payment = require('../models/Payment');
 const PDFDocument = require('pdfkit');
-// Generate a revenue report for a specific time period and create a PDF report
+
 router.get('/revenue-report', async (req, res) => {
   const { startDate, endDate } = req.query;
 
@@ -11,16 +11,16 @@ router.get('/revenue-report', async (req, res) => {
       date: { $gte: startDate, $lte: endDate },
     });
 
-    // Calculate total revenue
+    // total revenue
     const totalRevenue = payments.reduce(
       (sum, payment) => sum + payment.amount,
       0
     );
 
-    // Create a PDF document
+
     const doc = new PDFDocument();
 
-    // Set PDF response headers and attachment name
+
     res.setHeader('Content-Type', 'application/pdf');
     res.setHeader(
       'Content-Disposition',
@@ -28,7 +28,7 @@ router.get('/revenue-report', async (req, res) => {
     );
     doc.pipe(res);
 
-    // Add styling and content to the PDF
+    // styling  to the PDF
     doc.fontSize(18).text('Revenue Report', { align: 'center' });
     doc.moveDown(1);
 

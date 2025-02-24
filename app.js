@@ -13,7 +13,7 @@ app.use('/uploads/prescription', express.static('uploads/prescription'));
 const db = require('./db');
 db.on('error', console.error.bind(console, 'MongoDB connection error:'));
 
-//routes for managing patients, prescriptions, payments, and reports
+
 const patientRoutes = require('./routes/patients');
 const prescriptionRoutes = require('./routes/prescriptions');
 const paymentRoutes = require('./routes/payments');

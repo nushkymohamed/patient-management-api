@@ -3,7 +3,7 @@ const mongoose = require('mongoose');
 const paymentSchema = new mongoose.Schema({
   patient: {
     type: mongoose.Schema.Types.ObjectId,
-    ref: 'Patient', // This refers to the 'Patient' model
+    ref: 'Patient', 
   },
   date: {
     type: Date,
